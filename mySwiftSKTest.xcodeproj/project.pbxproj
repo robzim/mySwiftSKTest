@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		58368E6B1F938F2E00007C10 /* MyParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = 58368E6A1F938F2E00007C10 /* MyParticle.sks */; };
 		5844924B1F8F90750019EA5E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5844924A1F8F90750019EA5E /* AppDelegate.swift */; };
 		5844924D1F8F90750019EA5E /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 5844924C1F8F90750019EA5E /* GameScene.sks */; };
 		5844924F1F8F90750019EA5E /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 5844924E1F8F90750019EA5E /* Actions.sks */; };
@@ -15,9 +16,11 @@
 		584492561F8F90750019EA5E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 584492541F8F90750019EA5E /* Main.storyboard */; };
 		584492581F8F90750019EA5E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 584492571F8F90750019EA5E /* Assets.xcassets */; };
 		5844925B1F8F90750019EA5E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 584492591F8F90750019EA5E /* LaunchScreen.storyboard */; };
+		58D0D5301F9627EF0044C3BD /* hillary-clinton.png in Resources */ = {isa = PBXBuildFile; fileRef = 58D0D52F1F9627EF0044C3BD /* hillary-clinton.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		58368E6A1F938F2E00007C10 /* MyParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MyParticle.sks; sourceTree = "<group>"; };
 		584492471F8F90750019EA5E /* mySwiftSKTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mySwiftSKTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5844924A1F8F90750019EA5E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5844924C1F8F90750019EA5E /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -28,6 +31,7 @@
 		584492571F8F90750019EA5E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5844925A1F8F90750019EA5E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5844925C1F8F90750019EA5E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		58D0D52F1F9627EF0044C3BD /* hillary-clinton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hillary-clinton.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,10 +64,12 @@
 		584492491F8F90750019EA5E /* mySwiftSKTest */ = {
 			isa = PBXGroup;
 			children = (
+				58D0D52F1F9627EF0044C3BD /* hillary-clinton.png */,
 				5844924A1F8F90750019EA5E /* AppDelegate.swift */,
 				5844924C1F8F90750019EA5E /* GameScene.sks */,
 				5844924E1F8F90750019EA5E /* Actions.sks */,
 				584492501F8F90750019EA5E /* GameScene.swift */,
+				58368E6A1F938F2E00007C10 /* MyParticle.sks */,
 				584492521F8F90750019EA5E /* GameViewController.swift */,
 				584492541F8F90750019EA5E /* Main.storyboard */,
 				584492571F8F90750019EA5E /* Assets.xcassets */,
@@ -133,7 +139,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				584492561F8F90750019EA5E /* Main.storyboard in Resources */,
+				58368E6B1F938F2E00007C10 /* MyParticle.sks in Resources */,
 				5844924D1F8F90750019EA5E /* GameScene.sks in Resources */,
+				58D0D5301F9627EF0044C3BD /* hillary-clinton.png in Resources */,
 				584492581F8F90750019EA5E /* Assets.xcassets in Resources */,
 				5844925B1F8F90750019EA5E /* LaunchScreen.storyboard in Resources */,
 				5844924F1F8F90750019EA5E /* Actions.sks in Resources */,
