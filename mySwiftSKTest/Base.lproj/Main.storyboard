@@ -40,7 +40,7 @@
                                     </label>
                                 </subviews>
                             </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="QyG-nv-Awj" userLabel="Center Horizontal Stack View">
+                            <stackView hidden="YES" opaque="NO" tag="101" contentMode="scaleToFill" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="QyG-nv-Awj" userLabel="Center Horizontal Stack View">
                                 <rect key="frame" x="130.66666666666666" y="303" width="152.99999999999997" height="130"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7IU-Ap-rRu">
@@ -57,6 +57,9 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lGI-QU-pPT">
                                                 <rect key="frame" x="0.0" y="50" width="47" height="30"/>
                                                 <state key="normal" title="Center"/>
+                                                <connections>
+                                                    <action selector="myCenterButtonPressed:" destination="BV1-FR-VrT" eventType="touchUpInside" id="1ap-yg-92y"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YUU-TZ-FgH">
                                                 <rect key="frame" x="0.0" y="100" width="47" height="30"/>
@@ -80,6 +83,14 @@
                                     </segue>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cb1-ho-9x5">
+                                <rect key="frame" x="271" y="115" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="myPostNotification:" destination="BV1-FR-VrT" eventType="touchUpInside" id="pSP-ht-ZKP"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <gestureRecognizers/>
@@ -92,6 +103,7 @@
                         <viewLayoutGuide key="safeArea" id="4qk-I5-YsI"/>
                     </view>
                     <connections>
+                        <outlet property="myControlsStackView" destination="QyG-nv-Awj" id="zhw-Ov-1lw"/>
                         <outlet property="myTrailDurationLabel" destination="uz8-ZO-EJ3" id="EW3-wT-oTG"/>
                         <outlet property="myTrailDurationStepper" destination="xN2-kM-T84" id="bsm-EA-XN1"/>
                     </connections>
@@ -119,6 +131,9 @@
                                 <rect key="frame" x="20" y="677" width="46" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="OK"/>
+                                <connections>
+                                    <action selector="unwindToVC1WithSegue:" destination="phX-Vs-NEr" eventType="touchUpInside" id="nuv-bk-VAT"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

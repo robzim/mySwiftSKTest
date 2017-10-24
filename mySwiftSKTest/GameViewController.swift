@@ -23,6 +23,7 @@ var gameScene: GameScene!
 class GameViewController: UIViewController {
     var myTrailDuration = Data.gameScene.myFadeDuration
     
+    @IBOutlet weak var myControlsStackView: UIStackView!
     @IBOutlet weak var myTrailDurationLabel: UILabel!
     @IBOutlet weak var myTrailDurationStepper: UIStepper!
     @IBAction func myStepperValueChanged(_ sender: Any) {
@@ -32,13 +33,25 @@ class GameViewController: UIViewController {
         Data.gameScene.myFadeDuration = myTrailDuration
     }
     
+    @IBAction func myCenterButtonPressed(_ sender: Any) {
+        print("Center Button Pressed")
+    }
+    @IBAction func myPostNotification(_ sender: Any) {
+        print("got button press")
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "buttonpress"), object: self)
+    }
+    
     
     override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
         gameScene = GameScene()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+
+        
         print("Force Touch Raw Value = \(self.traitCollection.forceTouchCapability.rawValue)")
         
         
@@ -63,6 +76,12 @@ class GameViewController: UIViewController {
         }
     }
 
+    @IBAction func unwindToVC1(segue:UIStoryboardSegue) {
+        self.dismiss(animated: true) {
+            print("here we are!!")
+        }
+    }
+    
     override var shouldAutorotate: Bool {
         return true
     }
