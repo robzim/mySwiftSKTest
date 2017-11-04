@@ -12,8 +12,9 @@ import GameplayKit
 
 class GameScene: SKScene {
     
+    static var myTestString: String?
     
-    
+    public var myTestInt: Int?
     private var label : SKLabelNode?
     private var spinnyNode : SKShapeNode?
     private var pictureNode : SKSpriteNode?
@@ -21,7 +22,7 @@ class GameScene: SKScene {
     private let myParticleSystem = SKEmitterNode(fileNamed: "MyParticle.sks")
     private let myStrokeImage = UIImage(named: "donald-trump")
     private var myPopupNode = SKNode()
-    //    private var myLevelSprite = SKSpriteNode()
+    private var myLevelSprite = SKSpriteNode()
     private let mySoftImpactGenerator:UIImpactFeedbackGenerator = UIImpactFeedbackGenerator(style: UIImpactFeedbackStyle.light)
     private let myMediumImpactGenerator:UIImpactFeedbackGenerator = UIImpactFeedbackGenerator(style: UIImpactFeedbackStyle.medium)
     private let myHardImpactGenerator:UIImpactFeedbackGenerator = UIImpactFeedbackGenerator(style: UIImpactFeedbackStyle.heavy)
@@ -30,8 +31,19 @@ class GameScene: SKScene {
     private var mySoftImpactOccurred = false
     private var myMediumImpactOccurred = false
     private var myHardImpactOccurred = false
-
-    //    private let myStrokeTexture = SKTexture(imageNamed: "donald-trump")
+    
+    private var myTopButtonsView : UIView?
+    private var myBottomButtonsView : UIView?
+    private var myLeftButtonsView : UIView?
+    private var myRightButtonsView : UIView?
+    
+    private var myTopButton1Label : String?
+    private var myTopButton2Label : String?
+    private var myTopButton3Label : String?
+    private let myBottomLabels = ["BL1","BL2","BL3"]
+    private let myTopLabels = ["TL1","TL2","TL3"]
+    private let myLeftLabels = ["LL1","LL2","LL3"]
+    private let myRightLabels = ["RL1","RL2","RL3"]
     
     @objc func myShowCenterButtons() {
         myPopupNode.run(SKAction.fadeAlpha(to: 1.0, duration: 0.5))
@@ -42,45 +54,26 @@ class GameScene: SKScene {
     }
     
     @objc func myHideCenterButtons () {
-        myPopupNode.run(SKAction.fadeAlpha(to: 0.0, duration: 0.5))
-        myPopupNode.enumerateChildNodes(withName: "*") { (node, stop) in
-            node.isUserInteractionEnabled = true
-            node.isHidden = true
-        }
-        
-        //        myControlsStackView.isHidden = true
+        myPopupNode.run(SKAction.fadeAlpha(to: 0.0, duration: 0.1))
     }
     
-    
-    @objc func myNotificationResponse() {
-        print("button press notification received")
-        myShowCenterButtons()
-    }
-    
-    
-    
-    //
-    //
-    //
-    //
     //
     override func didMove(to view: SKView) {
         
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(myShowCenterButtons),
-                                               name: NSNotification.Name(rawValue: "showCenterButtons"),
-                                               object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(myHideCenterButtons),
-                                               name: NSNotification.Name(rawValue: "hideCenterButtons"),
-                                               object: nil)
+        myTopButtonsView = self.view?.viewWithTag(1212)
+        myBottomButtonsView = self.view?.viewWithTag(606)
+        myLeftButtonsView = self.view?.viewWithTag(909)
+        myRightButtonsView = self.view?.viewWithTag(303)
         
         
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(myNotificationResponse),
-                                               name: NSNotification.Name(rawValue: "buttonpress"),
-                                               object: nil)
-        
+        myLevelSprite = self.childNode(withName: "LevelMeter")! as! SKSpriteNode
+        myLevelSprite.xScale = 0.01
+        let myCustomAction = SKAction.customAction(withDuration: 0.0) {
+            node, elapsedTime in
+            if let node = node as? SKSpriteNode {
+                node.color = .blue                            }
+        }
+        myLevelSprite.run(myCustomAction)
         let myLongPressGR = UILongPressGestureRecognizer(target: self, action: #selector(GameScene.myLongPressRecognized))
         myLongPressGR.minimumPressDuration = 2.0
         self.view?.addGestureRecognizer(myLongPressGR)
@@ -88,23 +81,6 @@ class GameScene: SKScene {
         myPopupNode = self.childNode(withName: "PopupNode")!
         myHideCenterButtons()
         
-        
-        
-        // Get label node from scene and store it for use later
-        self.label = self.childNode(withName: "//helloLabel") as? SKLabelNode
-        if let label = self.label {
-            label.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
-        }
-        let w = (self.size.width + self.size.height) * 0.02
-        self.spinnyNode = SKShapeNode.init(rectOf: CGSize.init(width: w, height: w), cornerRadius: w * 0.3)
-        if let spinnyNode = self.spinnyNode {
-            spinnyNode.name = "trails"
-            spinnyNode.lineWidth = 2.5
-            spinnyNode.run(SKAction.repeatForever(SKAction.rotate(byAngle: CGFloat(Double.pi), duration: 1)))
-            spinnyNode.run(SKAction.sequence([SKAction.wait(forDuration: Data.gameScene.myFadeDuration),
-                                              SKAction.fadeOut(withDuration: Data.gameScene.myFadeDuration),
-                                              SKAction.removeFromParent()]))
-        }
     }
     
     
@@ -120,24 +96,9 @@ class GameScene: SKScene {
     }
     
     func touchDown(atPoint pos : CGPoint) {
-        //        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-        //            n.setScale(0.25)
-        //            n.position = pos
-        //            n.strokeColor = myRandomColor()
-        //            n.fillColor = myRandomColor()
-        //            self.addChild(n)
-        //        }
     }
     
     func touchMoved(toPoint pos : CGPoint) {
-        //        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-        //            n.position = pos
-        //            n.strokeColor = myRandomColor()
-        //            n.glowWidth = 5.0
-        //            n.lineWidth = 4.0
-        //            self.addChild(n)
-        //            n.run(.fadeOut(withDuration: Data.gameScene.myFadeDuration))
-        //        }
     }
     
     func myRandomColor() -> SKColor {
@@ -151,84 +112,172 @@ class GameScene: SKScene {
         return theRandomColor
     }
     
+    
+    
     func touchUp(atPoint pos : CGPoint) {
+        myLevelSprite = self.childNode(withName: "LevelMeter")! as! SKSpriteNode
+        myLevelSprite.xScale = 0.01
+        
         myPopupNode.enumerateChildNodes(withName: "*", using: { (node, stop) in
-            //            print("\(node.name!) Position \(node.position) TouchUp Position \(pos) ")
             if node.contains(pos) {
+                
+                if node.name != "myHideSprite" {
+                    let myColorNode = SKShapeNode(circleOfRadius: 50.0)
+                    myColorNode.fillColor = .red
+                    myColorNode.position = node.position
+                    myColorNode.alpha = 0.25
+                    self.myPopupNode.addChild(myColorNode)
+                    myColorNode.run(SKAction.sequence([
+                        SKAction.wait(forDuration: 0.05),
+                        SKAction.removeFromParent()
+                        ]))
+                }
+                
+                //
+                //
+                //  crashes to the line below when we land on the centersprite as it is still fading out
+                //
+                //
                 print("\(node.name!) WAS HIT !!")
-                //                self.myPopupNode.isHidden = true
+                switch node.name! {
+                case "myCenterSprite" :
+                    self.myPopupNode.removeAllActions()
+                    let myPopupShrinkAndFadeAction = SKAction.group([
+                        SKAction.scale(to: 0.01, duration: 0.05),
+                        SKAction.fadeAlpha(to: 0.0, duration: 0.05),
+                        ])
+                    self.myPopupNode.run(myPopupShrinkAndFadeAction)
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "hideAllButtons"), object: self)
+                case "myUpSprite" :
+                    for i in [0,1,2] {
+                        let myTempButton = self.myTopButtonsView?.subviews[i] as! UIButton
+                        myTempButton.setTitle(self.myTopLabels[i], for: UIControlState.normal)
+                    }
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showTopButtons"), object: self)
+                case "myDownSprite" :
+                    for i in [0,1,2] {
+                        let myTempButton = self.myBottomButtonsView?.subviews[i] as! UIButton
+                        myTempButton.setTitle(self.myBottomLabels[i], for: UIControlState.normal)
+                    }
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showBottomButtons"), object: self)
+                case "myRightSprite" :
+                    for i in [0,1,2] {
+                        let myTempButton = self.myRightButtonsView?.subviews[i] as! UIButton
+                        myTempButton.setTitle(self.myRightLabels[i], for: UIControlState.normal)
+                    }
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showRightButtons"), object: self)
+                case "myLeftSprite" :
+//                    for i in [0,1,2] {
+//                        let myTempButton = self.myLeftButtonsView?.subviews[i] as! UIButton
+//                        myTempButton.setTitle(self.myLeftLabels[i], for: UIControlState.normal)
+//                    }
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showLeftButtons"), object: self)
+                case "myHideSprite" :
+                    self.myHideCenterButtons()
+                default :
+                    print("NOT FOUND")
+                }
             }
+            
         })
         
-        //        if fabs(pos.x - myPopupNode.position.x) < 200.0  && fabs(pos.y - myPopupNode.position.y) < 200.0    {
-        //            print("HIT!")
-        //            self.myHideCenterButtons()
-        //        }
-        //        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "hideCenterButtons"), object: self)
-        
-        let myLevelSprite = self.childNode(withName: "LevelMeter")
-        myLevelSprite?.xScale = 0.01
-        self.myHideCenterButtons()
+        myLevelSprite.xScale = 0.01
         mySoftImpactOccurred = false
         myMediumImpactOccurred = false
         myHardImpactOccurred = false
-
+        
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        myPopupNode.setScale(1.0)
         mySoftImpactOccurred = false
         myMediumImpactOccurred = false
         myHardImpactOccurred = false
         for t in touches {
+            myLevelSprite.xScale = t.force
             self.touchDown(atPoint: t.location(in: self))
         }
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        let myLevelSprite = self.childNode(withName: "LevelMeter")
-        let myFadeAndRemove = SKAction .sequence([SKAction .scale(to: 0.1, duration: 0.5), SKAction .removeFromParent()])
+        let myFadeAndRemove = SKAction .sequence([SKAction .scale(to: 0.1, duration: 0.25), SKAction .removeFromParent()])
         for t in touches {
-            myLevelSprite?.xScale = (t.force)
+            let myPS = myParticleSystem?.copy() as! SKEmitterNode
+            myPS.position = t.location(in: self)
+            myPS.setScale(t.force)
+            myPS.name = "trails"
+            self.addChild(myPS)
+            myPS.run(myFadeAndRemove)
+            myLevelSprite.xScale = t.force
             self.touchMoved(toPoint: t.location(in: self))
             if Data.gameScene.my3DTouchAvailable == true {
-                //                print("Force = \(t.force)")
-                if t.force > 6.5 {
-                    if !myHardImpactOccurred {
-                        myHardImpactGenerator.impactOccurred()
-                        myHardImpactOccurred = true
-                    }
-                }
-                if t.force > 5.0 {
-                    if !myMediumImpactOccurred {
-                        myMediumImpactGenerator.impactOccurred()
-                        let myPS = myParticleSystem?.copy() as! SKEmitterNode
-                        myPS.position = t.location(in: self)
-                        myPS.setScale(2.0)
-                        myPS.name = "trails"
-                        self.addChild(myPS)
-                        myPS.run(myFadeAndRemove)
-                        myMediumImpactOccurred = true
-                    }
-                    
-                }
-                if t.force > 3.0 {
+                switch t.force {
+                case 1.0..<3.0:
+                    myLevelSprite.color = .orange
                     if !mySoftImpactOccurred {
                         mySoftImpactGenerator.impactOccurred()
                         self.myShowCenterButtons()
                         mySoftImpactOccurred = true
                     }
+                case 3.0..<5.0:
+                    myLevelSprite.color = .yellow
+                    myLevelSprite.removeAllActions()
+                    if !myMediumImpactOccurred {
+                        myMediumImpactGenerator.impactOccurred()
+                        myMediumImpactOccurred = true
+                    }
+                case 5.0..<100.5:
+                    myLevelSprite.color = .white
+                    if !myHardImpactOccurred {
+                        myHardImpactGenerator.impactOccurred()
+                        myHardImpactOccurred = true
+                    }
+                default:
+                    return
                 }
+                
+                
+                //                if t.force > 5.5 {
+                //                    myLevelSprite.color = .white
+                //                    if !myHardImpactOccurred {
+                //                        myHardImpactGenerator.impactOccurred()
+                //                        myHardImpactOccurred = true
+                //                    }
+                //                }
+                //                if t.force > 3.0 {
+                //                    myLevelSprite.color = .yellow
+                //                    myLevelSprite.removeAllActions()
+                //                    if !myMediumImpactOccurred {
+                //                        myMediumImpactGenerator.impactOccurred()
+                //                        myMediumImpactOccurred = true
+                //                    }
+                //                }
+                //                if t.force > 2.0 {
+                //                    myLevelSprite.color = .orange
+                //                    if !mySoftImpactOccurred {
+                //                        mySoftImpactGenerator.impactOccurred()
+                //                        self.myShowCenterButtons()
+                //                        mySoftImpactOccurred = true
+                //                    }
+                //                }
             }
         }
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let myCustomAction = SKAction.customAction(withDuration: 0.0) {
+            node, elapsedTime in
+            if let node = node as? SKSpriteNode {
+                node.color = .blue                            }
+        }
+        myLevelSprite.run(myCustomAction)
+        
         for t in touches { self.touchUp(atPoint: t.location(in: self)) }
     }
     
-    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchUp(atPoint: t.location(in: self)) }
-    }
+    //    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+    //        for t in touches { self.touchUp(atPoint: t.location(in: self)) }
+    //    }
     
     
 }
