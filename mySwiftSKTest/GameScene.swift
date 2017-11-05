@@ -117,7 +117,12 @@ class GameScene: SKScene {
     func touchUp(atPoint pos : CGPoint) {
         myLevelSprite = self.childNode(withName: "LevelMeter")! as! SKSpriteNode
         myLevelSprite.xScale = 0.01
-        
+        //
+        //  return if there are no children of this node
+        //
+        if myPopupNode.children.count == 0 {
+            return
+        }
         myPopupNode.enumerateChildNodes(withName: "*", using: { (node, stop) in
             if node.contains(pos) {
                 
