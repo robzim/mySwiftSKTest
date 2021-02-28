@@ -136,24 +136,24 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" tag="1212" contentMode="scaleToFill" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="ebN-th-5Hd" userLabel="Top Stack View">
-                                <rect key="frame" x="88.5" y="30" width="198" height="30"/>
+                                <rect key="frame" x="68.5" y="30" width="238" height="30"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RkW-Bg-OCn">
-                                        <rect key="frame" x="0.0" y="0.0" width="46" height="30"/>
-                                        <state key="normal" title="Button"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="86" height="30"/>
+                                        <state key="normal" title="Drop Sprites"/>
                                         <connections>
                                             <action selector="myTop1Pressed:" destination="BV1-FR-VrT" eventType="touchUpInside" id="j8b-pT-OYy"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kcu-ZF-qdn">
-                                        <rect key="frame" x="76" y="0.0" width="46" height="30"/>
+                                        <rect key="frame" x="116" y="0.0" width="46" height="30"/>
                                         <state key="normal" title="Button"/>
                                         <connections>
                                             <action selector="myTop2ressed:" destination="BV1-FR-VrT" eventType="touchUpInside" id="C50-6V-4dH"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3BU-3g-9sT">
-                                        <rect key="frame" x="152" y="0.0" width="46" height="30"/>
+                                        <rect key="frame" x="192" y="0.0" width="46" height="30"/>
                                         <state key="normal" title="Button"/>
                                         <connections>
                                             <action selector="myTop3Pressed:" destination="BV1-FR-VrT" eventType="touchUpInside" id="gj0-2w-vgc"/>

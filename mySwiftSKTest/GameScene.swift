@@ -41,7 +41,7 @@ class GameScene: SKScene {
     private var myTopButton2Label : String?
     private var myTopButton3Label : String?
     private let myBottomLabels = ["BL1","BL2","BL3"]
-    private let myTopLabels = ["TL1","TL2","TL3"]
+//    private let myTopLabels = ["TL1","TL2","TL3"]
     private let myLeftLabels = ["LL1","LL2","LL3"]
     private let myRightLabels = ["RL1","RL2","RL3"]
     
@@ -79,6 +79,7 @@ class GameScene: SKScene {
         self.view?.addGestureRecognizer(myLongPressGR)
         
         myPopupNode = self.childNode(withName: "PopupNode")!
+        myPopupNode.zPosition = 2.0
         myHideCenterButtons()
         
     }
@@ -154,10 +155,11 @@ class GameScene: SKScene {
                     self.myPopupNode.run(myPopupShrinkAndFadeAction)
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "hideAllButtons"), object: self)
                 case "myUpSprite" :
-                    for i in [0,1,2] {
-                        let myTempButton = self.myTopButtonsView?.subviews[i] as! UIButton
-                        myTempButton.setTitle(self.myTopLabels[i], for: UIControlState.normal)
-                    }
+//                    for i in [0,1,2] {
+//                        let myTempButton = self.myTopButtonsView?.subviews[i] as! UIButton
+//                        myTempButton.setTitle(self.myTopLabels[i], for: UIControlState.normal)
+//                    }
+//                    Data.gameScene.myGameViewController.myShowTopButtons()
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showTopButtons"), object: self)
                 case "myDownSprite" :
                     for i in [0,1,2] {
@@ -172,10 +174,10 @@ class GameScene: SKScene {
                     }
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showRightButtons"), object: self)
                 case "myLeftSprite" :
-//                    for i in [0,1,2] {
-//                        let myTempButton = self.myLeftButtonsView?.subviews[i] as! UIButton
-//                        myTempButton.setTitle(self.myLeftLabels[i], for: UIControlState.normal)
-//                    }
+                    //                    for i in [0,1,2] {
+                    //                        let myTempButton = self.myLeftButtonsView?.subviews[i] as! UIButton
+                    //                        myTempButton.setTitle(self.myLeftLabels[i], for: UIControlState.normal)
+                    //                    }
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showLeftButtons"), object: self)
                 case "myHideSprite" :
                     self.myHideCenterButtons()
@@ -208,6 +210,7 @@ class GameScene: SKScene {
         let myFadeAndRemove = SKAction .sequence([SKAction .scale(to: 0.1, duration: 0.25), SKAction .removeFromParent()])
         for t in touches {
             let myPS = myParticleSystem?.copy() as! SKEmitterNode
+            myPS.zPosition = 0.0
             myPS.position = t.location(in: self)
             myPS.setScale(t.force)
             myPS.name = "trails"
@@ -240,31 +243,6 @@ class GameScene: SKScene {
                 default:
                     return
                 }
-                
-                
-                //                if t.force > 5.5 {
-                //                    myLevelSprite.color = .white
-                //                    if !myHardImpactOccurred {
-                //                        myHardImpactGenerator.impactOccurred()
-                //                        myHardImpactOccurred = true
-                //                    }
-                //                }
-                //                if t.force > 3.0 {
-                //                    myLevelSprite.color = .yellow
-                //                    myLevelSprite.removeAllActions()
-                //                    if !myMediumImpactOccurred {
-                //                        myMediumImpactGenerator.impactOccurred()
-                //                        myMediumImpactOccurred = true
-                //                    }
-                //                }
-                //                if t.force > 2.0 {
-                //                    myLevelSprite.color = .orange
-                //                    if !mySoftImpactOccurred {
-                //                        mySoftImpactGenerator.impactOccurred()
-                //                        self.myShowCenterButtons()
-                //                        mySoftImpactOccurred = true
-                //                    }
-                //                }
             }
         }
     }

@@ -9,17 +9,21 @@
 import UIKit
 import SpriteKit
 import GameplayKit
-class Data {
+import CloudKit
+
+struct Data {
     struct gameScene {
         static var myFadeDuration:Double = 2.0
         static var mySpinDuration = 1.0
         static var my3DTouchAvailable = false
         static var myScene:SKScene = SKScene()
+        static var myGameViewController:GameViewController = GameViewController()
     }
 }
 
 var gameScene: GameScene!
-var myGameViewController:GameViewController = GameViewController()
+var myGlobalDropTimer = Timer()
+var myGameViewController:GameViewController!
 
 class GameViewController: UIViewController {
     @IBOutlet weak var myRightButtons: UIStackView!
@@ -28,6 +32,10 @@ class GameViewController: UIViewController {
     @IBOutlet weak var myBottomButtons: UIStackView!
     var myTrailDuration = Data.gameScene.myFadeDuration
     
+    
+    @objc func myRunDropTimer() {
+        self.myDropNode()
+    }
     
     func myShowAlertController(theTitleString:String, theButtonString:String) {
         let myLeftAlertController = UIAlertController.init(title: theTitleString, message: "Left One  Message", preferredStyle: UIAlertControllerStyle.actionSheet)
@@ -63,10 +71,12 @@ class GameViewController: UIViewController {
     }
     
     @IBAction func myTop1Pressed(_ sender: Any) {
-        self.myShowAlertController(theTitleString: "L3 Title", theButtonString: "L3 rocks")
+        self.myShowAlertController(theTitleString: "Drop Sprites", theButtonString: "L3 rocks")
+        myGlobalDropTimer.invalidate()
+        myStartDropTimer()
     }
     @IBAction func myTop2ressed(_ sender: Any) {
-        self.myShowAlertController(theTitleString: "L3 Title", theButtonString: "L3 rocks")
+        self.myShowAlertController(theTitleString: "L3 Title", theButtonString: "L3 \(#function) rocks")
     }
     @IBAction func myTop3Pressed(_ sender: Any) {
         self.myShowAlertController(theTitleString: "L3 Title", theButtonString: "L3 rocks")
@@ -85,7 +95,23 @@ class GameViewController: UIViewController {
 
     
     
-    
+    @objc func myDropNode() {
+        let myDNode = SKSpriteNode(imageNamed: "donald-trump")
+        let myHNode = SKSpriteNode(imageNamed: "hillary-clinton.png")
+        myDNode.setScale(0.25)
+        myHNode.setScale(0.25)
+        myDNode.physicsBody = SKPhysicsBody(texture: myDNode.texture!, size: myDNode.size)
+        myHNode.physicsBody = SKPhysicsBody(circleOfRadius: myHNode.size.height, center: myHNode.position)
+
+        myDNode.position = CGPoint(x: 0, y: 0)
+        Data.gameScene.myScene.addChild(myDNode)
+        myHNode.position = CGPoint(x: 100, y: 100)
+        Data.gameScene.myScene.addChild(myHNode)
+        print("done")
+        
+        
+        
+    }
     
     
     @IBOutlet weak var myControlsStackView: UIStackView!
@@ -149,10 +175,19 @@ class GameViewController: UIViewController {
         myPropertyAnimator.startAnimation()
         return true
     }
+    
+    func myStartDropTimer() {
+        myGlobalDropTimer = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(GameViewController.myRunDropTimer), userInfo: nil, repeats: true)
+    }
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+//        myStartDropTimer()
+        
+        let myDevice = UIDevice.current
+        print("Device Info Name: \(myDevice.name), Model: \(myDevice.model), Battery Level: \(myDevice.batteryLevel), System Name: \(myDevice.systemName), System Version: \(myDevice.systemVersion)")
         
         myLeftButtons.isHidden = true; myBottomButtons.isHidden = true; myRightButtons.isHidden = true; myTopButtons.isHidden = true
         NotificationCenter.default.addObserver(self,
@@ -180,8 +215,10 @@ class GameViewController: UIViewController {
 
 
         
-        print("Force Touch Raw Value = \(self.traitCollection.forceTouchCapability.rawValue)")
+//        print("Force Touch Raw Value = \(self.traitCollection.forceTouchCapability.rawValue)")
         
+        //
+        // set up the timer here
         
         if self.traitCollection.forceTouchCapability.rawValue == 2  {
             Data.gameScene.my3DTouchAvailable = true
@@ -261,5 +298,6 @@ class GameViewController: UIViewController {
         return true
     }
 }
+
 
 
